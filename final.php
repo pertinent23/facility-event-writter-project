@@ -383,7 +383,9 @@ if ($user->exists())
                 * comme le nom des films ressemble à ceci "La Revanche des Crevettes Pailletés - Affiche 120x160, Affiche pliée"
                 * en général, nous voulons le pretourner 
             */
-            $film = explode( "- Affic", $item_data->get_name() )[ 0 ];
+            $film_infos = explode( "-", $item_data->get_name() );
+            $film_infos = array_splice( $film_infos, 0, count( $film_infos ) - 1 );
+            $film = implode( '-', $film_infos );
             if ( has_term( $categories, 'product_cat', $item_data->get_product_id() ) ) {
                 analyse_data( [
                     'qty' => intval( $order->get_item_meta( $item_id, '_qty', true ) ), //quantite
